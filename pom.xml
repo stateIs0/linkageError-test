@@ -15,6 +15,7 @@
         <module>hello-parent-module</module>
         <module>hello-son-module</module>
         <module>main</module>
+        <module>test-x1</module>
     </modules>
 
     <properties>
