@@ -16,6 +16,12 @@ public class Main {
         Object o = aClass.newInstance();
         // 在 c2 里访问 c1, c1 会重新加载 c0(c2 已经加载过 c0),从而触发
         // loader constraint violation: loader (instance of org/example/C1SFClassloader) previously initiated loading for a different type with name "org/example/C0"
+        /*
+        核心条件:
+        1. 两个 CL 是 self-first 模式
+        2. 两个类加载器是父子类加载器(相对于平行类加载器)
+        3. 父子 CL classpath都有同名类, 且有交叉访问.
+         */
         Method get = aClass.getMethod("get");
 
         Object invoke = get.invoke(o);
