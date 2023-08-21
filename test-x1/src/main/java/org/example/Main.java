@@ -14,6 +14,8 @@ public class Main {
         C2SFClassloader c2SFClassloader = new C2SFClassloader(new URL[]{u2}, c1SFClassloader);
         Class<?> aClass = c2SFClassloader.loadClass("org.example.C2");
         Object o = aClass.newInstance();
+        // 在 c2 里访问 c1, c1 会重新加载 c0(c2 已经加载过 c0),从而触发
+        // loader constraint violation: loader (instance of org/example/C1SFClassloader) previously initiated loading for a different type with name "org/example/C0"
         Method get = aClass.getMethod("get");
 
         Object invoke = get.invoke(o);
